@@ -1,0 +1,322 @@
+options:
+    prefix: &6[CrazeX] &8»
+    permMessage: &cInsufficient permission!
+    owner: &bRazviti &3and &bSawyerBx
+    admin: &cnone
+    mod: &enone
+
+on load: 
+    wait 1 second
+    broadcast "&b&lRazviti's Util Skript"
+    broadcast "&6Made by &lRazviti"
+    broadcast "&b"
+    broadcast "&aDo /rcmds for the list of commands!"
+
+command /weather:
+    aliases: /raz:weather
+    permission: raz.weathermenu
+    permission message: &cNope!
+    trigger:
+        open chest with 3 rows named "&e&lWeather Menu" to player
+        format slot 13 of player with sunflower named "&b&lDay" to close then run [execute console command "time set 6000"]
+        format slot 12 of player with barrier named "&3&lToggleDownFall" to close then run  [execute console command "toggledownfall"]
+        format slot 14 of player with barrier named "&6&lToggleDownFall" to close then run  [execute console command "toggledownfall"]
+command /a [<text>]:
+    aliases: /raz:a
+    aliases: /bc, /broadcast, /alert, /aa
+    permission: raz.bc
+    permission message: {@permMessage}
+    trigger:
+        if arg-1 is set:
+            broadcast "&b"
+            broadcast "&b"
+            broadcast "&6[ANNOUNCEMENT] &8&l>&r %coloured arg-1%"
+            broadcast "&b"
+            broadcast "&b"
+        else:
+            send "&cUsage: /a [text]"
+command /help:
+    aliases: /raz:help
+    trigger:
+        send "&b"
+        send "&b"
+        send "&e---    &bCommands:    &e---"
+        send "&b"
+        send "&a/buy: &2Shop from the store!"
+        send "&a/shop: &2Get the buycraft link!"
+        send "&a/duel <player>: &2Duel a player!"
+        send "&a/discord: &2Get the discord link!"
+        send "&a/website &2Get linked the website!"
+        send "&a/rcmds &2Get razviti's commands!"
+        send "&a/ac: &2Get the admin commands!"
+        send "&b"
+command /pl:
+    aliases: /bukkit:pl, /?, /bukkit:?
+    trigger:
+        send "&fPlugins (1): &aCore"
+command /shop:
+    aliases: /raz:shop
+    trigger:
+        send "{@prefix} &6Go to our buycraft! At &7crazex.buycraft.net"
+command /discord:
+    aliases: /raz:discord
+    trigger:
+        send "&b"
+        send "{@prefix} &3Join our discord! &7discord.gg/Y9mZEXm"
+        send "&b"
+command /ac:
+    permission: raz.admin
+    permission message: {@permMessage}
+    aliases: /raz:ac, /raz:ad
+    trigger:
+        send "&b"
+        send "&b"
+        send "&e---    &cAdmin Commands:    &e---"
+        send "&b"
+        send "&cAdmin Commands:"
+        send "&a/a <text>: &2Broadcast a message to the server"
+        send "&a/kick <player> <reason>"
+        send "&a/ban <player> <reason>"
+        send "&b"
+command /rban [<offline player>] [<text>]:
+    aliases: /raz:ban
+    permission: raz.ban
+    permission message: {@permMessage}
+    trigger:
+        if arg-1 is not set:
+            send "&cUsage: /rban <player> [reason]"
+        if arg-1 is set:
+            if arg-2 is not set:
+            send "&cUsage: /rban <player> [reason]"
+            if arg-2 is set:
+
+                ban arg-1 due to "&cYou are banned from this server!%newline%&7Reason: %arg-2%%newline%&7This ban is &cForever"
+                send "&aBanned player %arg-1% for %arg-2%"
+                broadcast "&c%arg-1% &7was banned for &c%arg-2% &7(Forever)"
+                ban arg-1 because "&cYou are banned from this server!%newline%&7Reason: %arg-2%%newline%&7This ban is &cForever"
+command /runban [<offline player>] [<text>]:
+    aliases: /raz:unban
+    permission: raz.ban
+    permission message: {@permMessage}
+    trigger:
+        if arg-1 is not set:
+            send "&cUsage: /runban <player>"
+        if arg-1 is set:
+            send "&aUnbanned player %arg-1%"
+            broadcast "&c%arg-1% &7was &4unbanned"
+            unban arg-1
+command /rkick [<player>] [<text>]:
+    aliases: /raz:kick
+    permission: raz.ban
+    permission message: {@permMessage}
+    trigger:
+        if arg-1 is not set:
+            send "&cUsage: /rkick <player> [reason]"
+        if arg-1 is set:
+            if arg-2 is not set:
+            send "&cUsage: /rkick <player> [reason]"
+            if arg-2 is set:
+                send "&aKicked player %arg-1% for %arg-2%"
+                broadcast "&c%arg-1% &7was kicked for &c%arg-2% &7"
+                kick arg-1 due to "&cYou have been kicked for &7%arg-2%"
+command /rcmds:
+    aliases: /raz:help, /raz:cmds, /raz:c, /raz, /razviti, /raz:r, /raz:razviti
+    trigger:
+        send "&b &2"
+        send "&bRazviti's Commands:"
+        send "&b &2"
+        send "&b/raz &2Shows this message!"
+        send "&b/help &2 Sends you the list of server commands!"
+        send "&b/discord &2Sends you our discord link"
+        send "&b/ac &2Sends you the list of admin commands"
+        send "&b/rban &2Bans a player!"
+        send "&b/runban &2Unbans a player!"
+        send "&b/kick &2Kicks a player!"
+        send "&b/weather &2Opens the weather menu!"
+        send "&b/rcmute &2Mute the chat!"
+
+command /staff:
+    aliases: /raz:staff, /rstaff
+    trigger:
+        send "&b"
+        send "&bOwners: {@owner}"
+        send "&cAdmins: {@admin}"
+        send "&eMods: {@mod}"
+command /website:
+    aliases: /raz:website
+    trigger:
+        send "&b"
+        send "&6[CRAZEX] Go to our website at https://sawyerbx.github.io/crazex"
+        send "&b"
+command /cc:
+    aliases: /raz:cc, /clearchat
+    trigger:
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " "
+        broadcast " " 
+        broadcast "&bChat was cleared by &7%player%"
+
+on explode:
+     cancel event
