@@ -1,0 +1,60 @@
+options:
+	#What it broadcasts to the server when someone mutes the chat.
+	chat-mute-message : &6[CRAZEX] &aChat was muted by&2 %player%&a.
+	#What it broadcasts to the server when someone un mutes the chat.
+	chat-unmute-message : &6[CRAZEX] &aChat was un-muted by&2 %player%
+	#what it says when someone trys to talk when the chat is muted
+	chat-muted-message : &6[CRAZEX] &aChat is muted right now. &2Try again later
+	#If people with the permission can talk (false means that no one can talk, true means that ppl with the permission can talk, when chat is muted)
+	chat-bypass-allow : true
+	#The permission needed to use /gmute
+	chat-gmute-perm : raz.mute
+	#The message when someone bypasses global mute
+	#Permission to bypass the global mute
+	bypass-perm : raz.mute
+
+command /raz:mute:
+	description: Will mute the chat
+	permission: {@chat-gmute-perm}
+	trigger:
+		if {gmute2} is false:
+			set {gmute2} to true
+			broadcast "{@chat-mute-message}"
+		else:
+			set {gmute2} to false
+			broadcast "{@chat-unmute-message}"
+on chat:
+	if {gmute2} is true:
+		if {@chat-bypass-allow} is true:
+			player is op:
+				message ""
+		else:
+			cancel event
+			message "{@chat-muted-message}"
+
+command /rcmute:
+	description: Will mute the chat
+	permission: {@chat-gmute-perm}
+	trigger:
+		if {gmute} is false:
+			set {gmute} to true
+			broadcast "{@chat-mute-message}"
+		else:
+			set {gmute} to false
+			broadcast "{@chat-unmute-message}"
+on chat:
+	if {gmute} is true:
+		if {@chat-bypass-allow} is true:
+			player is op:
+				message ""
+		else:
+			cancel event
+			message "{@chat-muted-message}"
+
+	if {gmute2} is true:
+		if {@chat-bypass-allow} is true:
+			player is op:
+				message ""
+		else:
+			cancel event
+			message "{@chat-muted-message}"
